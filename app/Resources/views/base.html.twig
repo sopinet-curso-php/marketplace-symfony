@@ -4,23 +4,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Fav and touch icons -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
-    <link rel="shortcut icon" href="assets/ico/favicon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('assets/ico/apple-touch-icon-144-precomposed.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('assets/ico/apple-touch-icon-114-precomposed.png') }}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('assets/ico/apple-touch-icon-72-precomposed.png') }}">
+    <link rel="apple-touch-icon-precomposed" href="{{ asset('ico/apple-touch-icon-57-precomposed.png') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/ico/favicon.png') }}">
     <title>{% block title %}Comparte Tu Coche - Bienvenido a la plataforma de compartir coche{% endblock %}</title>
     
     {% block css %}
         <!-- Bootstrap core CSS -->
-        <link href="assets/bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="{{ asset('assets/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
     
         <!-- Custom styles for this template -->
-        <link href="assets/css/style.css" rel="stylesheet">
+        <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
     
         <!-- styles needed for carousel slider -->
-        <link href="assets/css/owl.carousel.css" rel="stylesheet">
-        <link href="assets/css/owl.theme.css" rel="stylesheet">
+        <link href="{{ asset('assets/css/owl.carousel.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/css/owl.theme.css') }}" rel="stylesheet">
     {% endblock %}
 
     <!-- Just for debugging purposes. -->
@@ -66,24 +66,28 @@
                         </a>
                     </div>
                     <div id="navbar" class="navbar-collapse collapse" aria-expanded="false">
-                        {% set usuarioLogueado = null %}
                         <ul class="nav navbar-nav navbar-right">
-                            <li>
-                                {% if usuarioLogueado == null %}
-                                <a href="#">
-                                    <button type="button" class="btn btn-primary">Login con Facebook</button>
-                                </a>
-                                {% else %}
-                                    {{ usuarioLogueado.nombre }}
-                                    <a href="#">Desconectar</a>
-                                {% endif %}
-                            </li>
-                            {% if usuarioLogueado != null %}
-                            <li>
-                                <a href="{{ link_nuevoTrayecto }}">
-                                    <button type="button" class="btn btn-default">Publica un trayecto</button>
-                                </a>
-                            </li>
+                            {% if app.user == null %}
+                                <li>
+                                    <a href="{{ path('fos_user_security_login') }}">
+                                        <button type="button" class="btn btn-primary">Login</button>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('fos_user_registration_register') }}">
+                                        <button type="button" class="btn btn-primary">Registro</button>
+                                    </a>
+                                </li>                                
+                            {% else %}
+                                <li>
+                                    {{ app.user.username }}
+                                    <a href="{{ path('fos_user_security_logout') }}">Desconectar</a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <button type="button" class="btn btn-default">Publica un trayecto</button>
+                                    </a>
+                                </li>
                             {% endif %}
                         </ul>
                     </div>
