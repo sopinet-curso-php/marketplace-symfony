@@ -75,17 +75,18 @@
                                 </li>
                                 <li>
                                     <a href="{{ path('fos_user_registration_register') }}">
-                                        <button type="button" class="btn btn-primary">Registro</button>
+                                        <button type="button" class="btn btn-default">Registro</button>
                                     </a>
                                 </li>                                
                             {% else %}
                                 <li>
-                                    {{ app.user.username }}
-                                    <a href="{{ path('fos_user_security_logout') }}">Desconectar</a>
+                                    <a href="#">
+                                        <button type="button" class="btn btn-primary">Publica un trayecto</button>
+                                    </a>
                                 </li>
                                 <li>
-                                    <a href="#">
-                                        <button type="button" class="btn btn-default">Publica un trayecto</button>
+                                    <a href="{{ path('fos_user_security_logout') }}">
+                                        <button type="button" class="btn btn-default">{{ app.user.username }}, Desconectar</button>
                                     </a>
                                 </li>
                             {% endif %}
