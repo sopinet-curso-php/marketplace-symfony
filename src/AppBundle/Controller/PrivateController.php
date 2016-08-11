@@ -13,15 +13,7 @@ class PrivateController extends Controller
      */
     public function nuevoTrayectoAction(Request $request)
     {
-        /**
-         * Muestra un formulario para rellenar un nuevo Trayecto
-         * 
-         * 
-         * 1. Habría que copiar los twig de nuevoTrayecto.html.twig
-         * 2. Y indicar en el render que se muestren
-         * 
-         * */
-        die("Pendiente de hacer: Nuevo Trayecto");
+        return $this->render('nuevoTrayecto/index.html.twig');
     }
     
     /**
