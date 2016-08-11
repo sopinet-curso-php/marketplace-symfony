@@ -30,11 +30,11 @@ class Trayecto {
     /**
      * @ORM\Column(type="date")
      */
-    protected $fechaPublicacion;
+    protected $fechaDeViaje;
     /**
      * @ORM\Column(type="time")
      */
-    protected $hora;
+    protected $horaDeViaje;
     /**
      * @ORM\Column(type="float")
      */
@@ -55,118 +55,25 @@ class Trayecto {
     protected $conductor;
 
     /**
-     * Rellena este objeto con una serie de datos pasados por parámetro
+     * Inicializa nuestro objeto Trayecto para cuando se vaya a crear uno nuevo, con la fecha y hora actuales
      *
-     * @return void
-     **/
-    function llenarObjeto($p1, $p3, $p4, $p5, $p6, $p7, $p8, $p9, $p10) {
-        $this->conductor = $p1;
-        $this->origen = $p3;
-        $this->destino = $p4;
-        $this->calle = $p5;
-        $this->fechaPublicacion->setTimestamp($p6);
-        $this->hora = $p7;
-        $this->precio = $p8;
-        $this->descripcion = $p9;
-        $this->plazas = $p10;
-    }
-
-    function getFechaPublicacion() {
-        return $this->fechaPublicacion;
-    }
-
-    /**
-     * Devuelve la descripción corta (80 primeros caracteres) del objeto
-     *
-     * @return string
-     **/
-    function getDescripcionCorta() {
-        $descripcionCorta = substr($this->descripcion, 0, 80);
-        $descripcionFinal = $descripcionCorta . "...";
-        return $descripcionFinal;
-    }
-
-    /**
-     * Comprueba si el origen pasado por parámetro coincide con el de nuestro objeto ($this)
-     * Si coincide devolvemos true
-     * Si no coincide devolvemos false
-     *
-     * @return bool
-     *
-     **/
-    function tieneOrigen($paramOrigen) {
-        if ($paramOrigen == $this->origen) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Copmrueba si el destino pasado por parámetro coincide con el de nuestro objeto ($this)
-     *
-     * @return bool
-     **/
-    function tieneDestino($paramDestino) {
-        if ($paramDestino == $this->destino) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Compara tanto si el origen coincide con el parámetro pasado o el destino
-     *
-     * @return bool
-     **/
-    function buscar($param) {
-        if ($this->tieneDestino($param) || $this->tieneOrigen($param)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Comprueba si la fecha actual está dentro del filtro de fecha seleccionado
-     *
-     * @return bool
-     **/
-    function filtroFecha($param) {
-        if ($param == 0) {
-            return true;
-        } else {
-            $fechaHoy = new DateTime();
-            $diff = $fechaHoy->diff($this->fechaPublicacion);
-            $diffDias = $diff->format('%a');
-            return ($diffDias <= $param);
-        }
-    }
-
-    /**
-     * Set id
-     *
-     * @param integer $id
-     * @return Trayecto
+     * Trayecto constructor.
      */
-    public function setId($id)
+    public function __construct()
     {
-        $this->id = $id;
-
-        return $this;
+        $this->fechaDeViaje = new \DateTime();
+        $this->horaDeViaje = new \DateTime();
     }
 
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
         return $this->id;
     }
-
 
     /**
      * Set origen
@@ -184,7 +91,7 @@ class Trayecto {
     /**
      * Get origen
      *
-     * @return string
+     * @return string 
      */
     public function getOrigen()
     {
@@ -207,7 +114,7 @@ class Trayecto {
     /**
      * Get destino
      *
-     * @return string
+     * @return string 
      */
     public function getDestino()
     {
@@ -230,7 +137,7 @@ class Trayecto {
     /**
      * Get calle
      *
-     * @return string
+     * @return string 
      */
     public function getCalle()
     {
@@ -238,39 +145,49 @@ class Trayecto {
     }
 
     /**
-     * Set fechaPublicacion
+     * Set fechaDeViaje
      *
-     * @param \DateTime $fechaPublicacion
+     * @param \DateTime $fechaDeViaje
      * @return Trayecto
      */
-    public function setFechaPublicacion($fechaPublicacion)
+    public function setFechaDeViaje($fechaDeViaje)
     {
-        $this->fechaPublicacion = $fechaPublicacion;
+        $this->fechaDeViaje = $fechaDeViaje;
 
         return $this;
     }
 
     /**
-     * Set hora
+     * Get fechaDeViaje
      *
-     * @param \DateTime $hora
+     * @return \DateTime 
+     */
+    public function getFechaDeViaje()
+    {
+        return $this->fechaDeViaje;
+    }
+
+    /**
+     * Set horaDeViaje
+     *
+     * @param \DateTime $horaDeViaje
      * @return Trayecto
      */
-    public function setHora($hora)
+    public function setHoraDeViaje($horaDeViaje)
     {
-        $this->hora = $hora;
+        $this->horaDeViaje = $horaDeViaje;
 
         return $this;
     }
 
     /**
-     * Get hora
+     * Get horaDeViaje
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
-    public function getHora()
+    public function getHoraDeViaje()
     {
-        return $this->hora;
+        return $this->horaDeViaje;
     }
 
     /**
@@ -289,7 +206,7 @@ class Trayecto {
     /**
      * Get precio
      *
-     * @return float
+     * @return float 
      */
     public function getPrecio()
     {
@@ -312,7 +229,7 @@ class Trayecto {
     /**
      * Get descripcion
      *
-     * @return string
+     * @return string 
      */
     public function getDescripcion()
     {
@@ -335,21 +252,33 @@ class Trayecto {
     /**
      * Get plazas
      *
-     * @return integer
+     * @return integer 
      */
     public function getPlazas()
     {
         return $this->plazas;
     }
 
-
-    public function setConductor($conductor)
+    /**
+     * Set conductor
+     *
+     * @param \AppBundle\Entity\Persona $conductor
+     * @return Trayecto
+     */
+    public function setConductor(\AppBundle\Entity\Persona $conductor = null)
     {
-        $this->conductor=$conductor;
+        $this->conductor = $conductor;
+
         return $this;
     }
 
-    public function getConductor(){
+    /**
+     * Get conductor
+     *
+     * @return \AppBundle\Entity\Persona 
+     */
+    public function getConductor()
+    {
         return $this->conductor;
     }
 }
