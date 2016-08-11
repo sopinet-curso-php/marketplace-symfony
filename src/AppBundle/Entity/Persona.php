@@ -29,6 +29,22 @@ class Persona extends BaseUser
      */
     protected $trayectos;
 
+    public function __construct()
+    {
+        // Llamamos al constructor "padre" de FOSUser, porque Persona extiende de dicha clase.
+        parent::__construct();
+        // Declaramos un array con 3 valores de avatares
+        $avatars = array(
+            "https://addons.cdn.mozilla.net/user-media/userpics/0/0/45.png?modified=1447324257",
+            "http://megaforo.com/images/user4.png",
+            "http://gh.nsrrc.org.tw/Content/img/male05.png"
+        );
+        // Elegimos un número aleatorio entre 0 y el número de elementos del array avatars - 1:
+        $indexSel = rand(0, count($avatars) - 1);
+        // Asignamos un avatar, según el número al azar elegido con la función rand
+        $this->avatar = $avatars[$indexSel];
+    }
+
     /**
      * Set avatar
      *
