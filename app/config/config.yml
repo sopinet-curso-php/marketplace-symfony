@@ -78,3 +78,4 @@ easy_admin:
             class: AppBundle\Entity\Persona    
             form:
                 fields: ['enabled', 'username', 'email', 'roles', 'lastLogin', 'trayectos', 'plainPassword']
+
