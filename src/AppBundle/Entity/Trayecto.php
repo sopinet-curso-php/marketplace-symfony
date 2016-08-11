@@ -281,4 +281,9 @@ class Trayecto {
     {
         return $this->conductor;
     }
+
+    public function __toString()
+    {
+        return "Viaje de " . $this->getOrigen() . " a " . $this->getDestino();
+    }
 }
