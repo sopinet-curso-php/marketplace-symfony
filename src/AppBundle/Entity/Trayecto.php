@@ -19,11 +19,13 @@ class Trayecto {
     protected $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\ManyToOne(targetEntity="Ciudad", inversedBy="trayectosDondeSoyOrigen")
+     * @ORM\JoinColumn(name="origen_id", referencedColumnName="id")
      */
     protected $origen;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\ManyToOne(targetEntity="Ciudad", inversedBy="trayectosDondeSoyDestino")
+     * @ORM\JoinColumn(name="destino_id", referencedColumnName="id")
      */
     protected $destino;
     /**
@@ -80,52 +82,6 @@ class Trayecto {
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set origen
-     *
-     * @param string $origen
-     * @return Trayecto
-     */
-    public function setOrigen($origen)
-    {
-        $this->origen = $origen;
-
-        return $this;
-    }
-
-    /**
-     * Get origen
-     *
-     * @return string 
-     */
-    public function getOrigen()
-    {
-        return $this->origen;
-    }
-
-    /**
-     * Set destino
-     *
-     * @param string $destino
-     * @return Trayecto
-     */
-    public function setDestino($destino)
-    {
-        $this->destino = $destino;
-
-        return $this;
-    }
-
-    /**
-     * Get destino
-     *
-     * @return string 
-     */
-    public function getDestino()
-    {
-        return $this->destino;
     }
 
     /**
@@ -316,5 +272,53 @@ class Trayecto {
     public function getEnabled()
     {
         return $this->enabled;
+    }
+
+    /**
+     * Set origen
+     *
+     * @param \AppBundle\Entity\Ciudad $origen
+     *
+     * @return Trayecto
+     */
+    public function setOrigen(\AppBundle\Entity\Ciudad $origen = null)
+    {
+        $this->origen = $origen;
+
+        return $this;
+    }
+
+    /**
+     * Get origen
+     *
+     * @return \AppBundle\Entity\Ciudad
+     */
+    public function getOrigen()
+    {
+        return $this->origen;
+    }
+
+    /**
+     * Set destino
+     *
+     * @param \AppBundle\Entity\Ciudad $destino
+     *
+     * @return Trayecto
+     */
+    public function setDestino(\AppBundle\Entity\Ciudad $destino = null)
+    {
+        $this->destino = $destino;
+
+        return $this;
+    }
+
+    /**
+     * Get destino
+     *
+     * @return \AppBundle\Entity\Ciudad
+     */
+    public function getDestino()
+    {
+        return $this->destino;
     }
 }

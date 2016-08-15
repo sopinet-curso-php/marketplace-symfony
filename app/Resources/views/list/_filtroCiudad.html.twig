@@ -6,9 +6,9 @@
             <div class="col-sm-3 col-sm-offset-3">
                 <select class="form-control" name="country" id="country">
                     <option {% if country == "" %} selected="selected" {% endif %} value="">Todas las localidades</option>
-                    <option {% if country == "Huelva" %} selected="selected" {% endif %} value="Huelva">Huelva</option>
-                    <option {% if country == "Córdoba" %} selected="selected" {% endif %} value="Córdoba">Cordoba</option>
-                    <option {% if country == "Sevilla" %} selected="selected" {% endif %} value="Sevilla">Sevilla</option>
+                    {% for ciudad in ciudades %}
+                        <option {% if country == ciudad.id %} selected="selected" {% endif %} value="{{ ciudad.id }}">{{ ciudad.nombre }}</option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="col-sm-3">

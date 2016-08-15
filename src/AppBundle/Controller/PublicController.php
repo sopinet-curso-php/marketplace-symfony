@@ -50,8 +50,13 @@ class PublicController extends Controller
         // Se obtienen los resultados
         $trayectosFiltrados = $queryBuilder->getQuery()->execute();
 
+        // Obtenemos el listado de Ciudades disponibles
+        $repositorioCiudad = $entityManager->getRepository("AppBundle:Ciudad");
+        $ciudades = $repositorioCiudad->findAll();
+
         return $this->render('list/index.html.twig', array(
             'trayectos' => $trayectosFiltrados,
+            'ciudades' => $ciudades,
             'posted' => $request->get('posted'),
             'country' => $request->get('country')
         ));

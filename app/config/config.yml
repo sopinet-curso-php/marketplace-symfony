@@ -72,6 +72,10 @@ fos_user:
     
 easy_admin:
     entities:
+        Ciudad:
+            class: AppBundle\Entity\Ciudad
+            form:
+                fields: ['nombre']
         Trayecto:
             class: AppBundle\Entity\Trayecto
             form:
