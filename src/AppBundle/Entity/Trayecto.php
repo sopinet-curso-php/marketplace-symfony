@@ -50,6 +50,10 @@ class Trayecto {
      * @ORM\Column(type="integer")
      */
     protected $plazas;
+    /**
+     * @ORM\Column(type="boolean", options={"default" : true})
+     */
+    protected $enabled;
 
     /**
      * @ORM\ManyToOne(targetEntity="Persona", inversedBy="trayectos")
@@ -288,5 +292,29 @@ class Trayecto {
     public function __toString()
     {
         return "Viaje de " . $this->getOrigen() . " a " . $this->getDestino();
+    }
+
+    /**
+     * Set enabled
+     *
+     * @param boolean $enabled
+     *
+     * @return Trayecto
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    /**
+     * Get enabled
+     *
+     * @return boolean
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
     }
 }
