@@ -74,6 +74,8 @@ easy_admin:
     entities:
         Trayecto:
             class: AppBundle\Entity\Trayecto
+            form:
+                fields: ['origen', 'destino', 'calle', 'fechaDeViaje', 'horaDeViaje', 'precio', 'descripcion', 'plazas', 'conductor']
         Persona:
             class: AppBundle\Entity\Persona    
             form:
