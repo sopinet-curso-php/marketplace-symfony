@@ -13,7 +13,22 @@ class PublicController extends Controller
      */
     public function homeAction(Request $request)
     {
+        // Instanciamos la clase EntityManager de Doctrine
+        $entityManager = $this->getDoctrine()->getManager();
+        // Obtenemos el número de Ciudades disponibles:
+        $repositorioCiudad = $entityManager->getRepository("AppBundle:Ciudad");
+        $ciudades = $repositorioCiudad->findAll();
+        // Obtenemos el número de Trayectos creados:
+        $repositorioTrayecto = $entityManager->getRepository("AppBundle:Trayecto");
+        $trayectos = $repositorioTrayecto->findAll();
+        // Obtenemos el número de Conductores de nuestra plataforma
+        $repositorioPersona = $entityManager->getRepository("AppBundle:Persona");
+        $personas = $repositorioPersona->findAll();
+
         return $this->render('home/index.html.twig', array(
+            'ciudades' => $ciudades,
+            'trayectos' => $trayectos,
+            'personas' => $personas
         ));
     }
     
