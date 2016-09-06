@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block contenido %}
+    <div class="main-container">
+        <div class="container">
+            <div class="row clearfix">
+                <h3 class="pull-left">Usuario: {{ persona.username }}</h3>
+                <img class="pull-right" src="{{ persona.avatar }}"/>
+                <div style="clear:both"/>
+                <h4>Tiene creados {{ persona.trayectos|length }} trayectos.</h4>
+
+                {% for trayecto in persona.trayectos %}
+                    {% include 'list/_trayecto.html.twig' %}
+                {% endfor %}
+
+                <hr/>
+
+                <a class="btn btn-block btn-primary text-center" href="{{ path('public_list') }}">Volver a listado de Trayectos</a>
+
+                <hr/>
+            </div>
+        </div>
+    </div>
+{% endblock %}
