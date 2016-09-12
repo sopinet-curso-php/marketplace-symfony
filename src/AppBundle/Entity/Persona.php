@@ -29,6 +29,11 @@ class Persona extends BaseUser
      */
     protected $trayectos;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Trayecto", mappedBy="pasajeros")
+     */
+    protected $trayectosPasajero;
+
     public function __construct()
     {
         // Llamamos al constructor "padre" de FOSUser, porque Persona extiende de dicha clase.
@@ -43,6 +48,8 @@ class Persona extends BaseUser
         $indexSel = rand(0, count($avatars) - 1);
         // Asignamos un avatar, según el número al azar elegido con la función rand
         $this->avatar = $avatars[$indexSel];
+
+        $this->trayectosPasajero = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -99,5 +106,39 @@ class Persona extends BaseUser
     public function getTrayectos()
     {
         return $this->trayectos;
+    }
+
+    /**
+     * Add trayectosPasajero
+     *
+     * @param \AppBundle\Entity\Trayecto $trayectosPasajero
+     *
+     * @return Persona
+     */
+    public function addTrayectosPasajero(\AppBundle\Entity\Trayecto $trayectosPasajero)
+    {
+        $this->trayectosPasajero[] = $trayectosPasajero;
+
+        return $this;
+    }
+
+    /**
+     * Remove trayectosPasajero
+     *
+     * @param \AppBundle\Entity\Trayecto $trayectosPasajero
+     */
+    public function removeTrayectosPasajero(\AppBundle\Entity\Trayecto $trayectosPasajero)
+    {
+        $this->trayectosPasajero->removeElement($trayectosPasajero);
+    }
+
+    /**
+     * Get trayectosPasajero
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTrayectosPasajero()
+    {
+        return $this->trayectosPasajero;
     }
 }

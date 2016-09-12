@@ -26,8 +26,16 @@
                     <li>
                         <span class="save-job">
                             <span class="fa fa-users"></span>
-                            {{ trayecto.plazas }} plazas
+                            {{ trayecto.plazasDisponibles }} plazas
                         </span>
+                    </li>
+                    <li>
+                        {% if (trayecto.plazasDisponibles > 0) %}
+                            <a href="{{ path('private_reservarPlaza', {'trayecto' : trayecto.id }) }}">Reservar plaza</a>
+                        {% else %}
+                            <i>No quedan plazas disponibles</i>
+                        {% endif %}
+
                     </li>
                 </ul>
             </div>

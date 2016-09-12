@@ -52,6 +52,9 @@ class Trayecto {
      * @ORM\Column(type="integer")
      */
     protected $plazas;
+
+    protected $plazasDisponbiles;
+
     /**
      * @ORM\Column(type="boolean", options={"default" : true})
      */
@@ -64,14 +67,27 @@ class Trayecto {
     protected $conductor;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Persona", inversedBy="trayectosPasajero")
+     * @ORM\JoinTable(name="trayectos_pasajeros")
+     */
+    protected $pasajeros;
+
+    /**
      * Inicializa nuestro objeto Trayecto para cuando se vaya a crear uno nuevo, con la fecha y hora actuales
      *
      * Trayecto constructor.
      */
     public function __construct()
     {
+        $this->enabled = true;
         $this->fechaDeViaje = new \DateTime();
         $this->horaDeViaje = new \DateTime();
+        $this->pasajeros = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function getPlazasDisponibles()
+    {
+        return $this->plazas - count($this->getPasajeros());
     }
 
     /**
@@ -320,5 +336,46 @@ class Trayecto {
     public function getDestino()
     {
         return $this->destino;
+    }
+
+    /**
+     * Add pasajero
+     *
+     * @param \AppBundle\Entity\Persona $pasajero
+     *
+     * @return Trayecto
+     */
+    public function addPasajero(\AppBundle\Entity\Persona $pasajero)
+    {
+        $this->pasajeros[] = $pasajero;
+
+        return $this;
+    }
+
+    /**
+     * Remove pasajero
+     *
+     * @param \AppBundle\Entity\Persona $pasajero
+     */
+    public function removePasajero(\AppBundle\Entity\Persona $pasajero)
+    {
+        $this->pasajeros->removeElement($pasajero);
+    }
+
+    /**
+     * Get pasajeros
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPasajeros()
+    {
+        return $this->pasajeros;
+    }
+
+    public function hasPasajero($pasajeroBuscar) {
+        foreach($this->pasajeros as $pasajero) {
+            if ($pasajero->getId() == $pasajeroBuscar->getId()) return true;
+        }
+        return false;
     }
 }
