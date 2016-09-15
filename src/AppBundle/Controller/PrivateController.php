@@ -4,6 +4,8 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Ciudad;
 use AppBundle\Entity\Trayecto;
+use AppBundle\Security\TrayectotVoter;
+use AppBundle\Security\TrayectoVoter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,6 +18,9 @@ class PrivateController extends Controller
      */
     public function nuevoTrayectoAction(Request $request)
     {
+        $nuevoTrayecto = new Trayecto();
+        $this->denyAccessUnlessGranted(TrayectoVoter::PUBLICAR, $nuevoTrayecto);
+
         return $this->render('nuevoTrayecto/index.html.twig');
     }
     
@@ -26,6 +31,7 @@ class PrivateController extends Controller
     {
         // Creamos entidad Trayecto
         $nuevoTrayecto = new Trayecto();
+        $this->denyAccessUnlessGranted(TrayectoVoter::PUBLICAR, $nuevoTrayecto);
 
         // Asignamos los datos recogidos por Request del Form
         $entityManager = $this->getDoctrine()->getManager();
@@ -83,6 +89,8 @@ class PrivateController extends Controller
      * @ParamConverter("trayecto", class="AppBundle:Trayecto")
      */
     public function reservarPlazaAction(Trayecto $trayecto) {
+        $this->denyAccessUnlessGranted(TrayectoVoter::RESERVAR, $trayecto);
+
         if ($trayecto->getPlazasDisponibles() <= 0) {
             die("No hay plazas disponibles");
         }

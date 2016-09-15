@@ -24,6 +24,7 @@ class PublicController extends Controller
         // Obtenemos el número de Trayectos creados:
         $repositorioTrayecto = $entityManager->getRepository("AppBundle:Trayecto");
         $trayectos = $repositorioTrayecto->findAll();
+
         // Obtenemos el número de Conductores de nuestra plataforma
         $repositorioPersona = $entityManager->getRepository("AppBundle:Persona");
         $personas = $repositorioPersona->findAll();
@@ -36,7 +37,7 @@ class PublicController extends Controller
     }
     
     /**
-     * @Route("/list", name="public_list") 
+     * @Route("/list", name="public_list")
      */
     public function listAction(Request $request)
     {

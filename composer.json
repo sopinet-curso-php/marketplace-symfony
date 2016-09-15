@@ -2,6 +2,7 @@
     "name": "ubuntu/dev",
     "license": "proprietary",
     "type": "project",
+    "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
             "": "src/"
@@ -23,7 +24,8 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "javiereguiluz/easyadmin-bundle": "^1.15",
-        "knplabs/doctrine-behaviors": "~1.1"
+        "knplabs/doctrine-behaviors": "~1.1",
+        "jjs/geonames-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",
